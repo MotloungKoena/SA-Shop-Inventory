@@ -1,48 +1,25 @@
-import { useState } from "react";
-import "./App.css";
-import Register from "./Register";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./Login";
+import Register from "./Register";
+import Dashboard from "./Dashboard";
+import "./App.css";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
   return (
-    <div className="App">
-      {isLogin ? <Login /> : <Register />}
-
-      {/* A simple button to switch screens */}
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "1rem",
-          paddingBottom: "2rem",
-        }}
-      >
-        {/* <button 
-          onClick={() => setIsLogin(!isLogin)}
-          style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', textDecoration: 'underline' }}
-        >
-          {isLogin ? "Need an account? Register" : "Already have an account? Login"}
-        </button> */}
-
-        <button
-          onClick={() => setIsLogin(!isLogin)}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "#3b82f6",
-            cursor: "pointer",
-            textDecoration: "underline",
-            fontSize: "1rem",
-            fontFamily: "inherit",
-          }}
-        >
-          {isLogin
-            ? "Need an account? Register"
-            : "Already have an account? Login"}
-        </button>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        {/* Redirect the root URL to /login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
