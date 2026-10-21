@@ -38,4 +38,52 @@ public class AuthController : ControllerBase
 
         return Ok(new { message = "Registration successful!", shopName = user.ShopName });
     }
+
+    // [HttpPost("login")]
+    // public async Task<IActionResult> Login([FromBody] User request)
+    // {
+    //     //Find user by email
+    //     var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+    //     //Check if user exists and the plain text password matches
+    //     if (user == null || user.PasswordHash != request.PasswordHash)
+    //     {
+    //         return Unauthorized(new { message = "Invalid email or password." });
+    //     }
+
+    //     //login successful
+    //     return Ok(new
+    //     {
+    //         message = "Login successful!",
+    //         shopName = user.ShopName,
+    //         email = user.Email
+    //     });
+    // }
+
+
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        //Find the user by email
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+        //If user doesn't exist, or password doesn't match
+        if (user == null || user.PasswordHash != request.Password)
+        {
+            return Unauthorized(new { message = "Invalid email or password." });
+        }
+
+        return Ok(new
+        {
+            message = "Login successful!",
+            shopName = user.ShopName
+        });
+    }
+}
+
+public class LoginRequest
+{
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }
