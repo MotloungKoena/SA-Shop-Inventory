@@ -1,36 +1,30 @@
 import { useState } from "react";
 import "./Register.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      //   const response = await fetch('http://localhost:5142/api/auth/login', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({
-      //       email: email,
-      //       passwordHash: password, // Sending the password in the PasswordHash field for now
-      //     }),
-      //   });
-
       const response = await fetch("http://localhost:5142/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
-          password: password, // sending it as password for now, but should be passwordHash
+          password: password,  //should be passwordHash so we hash the password
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert(`Welcome back, ${data.shopName}!`);
+        localStorage.setItem("shopName", data.shopName);
+        navigate("/dashboard");
       } else {
         alert(data.message);
       }
@@ -71,6 +65,10 @@ export default function Login() {
             Login
           </button>
         </form>
+
+        <p style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem", color: "#6b7280" }}>
+          Need an account? <Link to="/register" style={{ color: "#3b82f6", textDecoration: "none", fontWeight: "600" }}>Register here</Link>
+        </p>
       </div>
     </div>
   );
