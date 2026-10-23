@@ -48,7 +48,7 @@ cd backend/ShopInventoryAPI
 # Restore NuGet packages
 dotnet restore
 
-# Build the SQL Server database (Run this!)
+# Build the SQL Server database 
 dotnet ef database update
 
 # Start the API
