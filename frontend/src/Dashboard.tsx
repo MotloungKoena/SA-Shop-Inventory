@@ -1,15 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
+import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  
-  // For now, we'll just grab the shop name from localStorage , will configure this later
-  const shopName = localStorage.getItem('shopName') || 'My Shop';
+
+  const shopName = localStorage.getItem("shopName") || "My Shop";
 
   const handleLogout = () => {
-    localStorage.removeItem('shopName');
-    navigate('/login');
+    localStorage.removeItem("shopName");
+    navigate("/login");
   };
 
   return (
@@ -21,14 +20,26 @@ export default function Dashboard() {
           <p>Inventory System</p>
         </div>
         <nav className="sidebar-nav">
-          <a href="#" className="nav-item active">📊 Dashboard</a>
-          <a href="#" className="nav-item">🛒 Point of Sale</a>
-          <a href="#" className="nav-item">📦 Inventory</a>
-          <a href="#" className="nav-item">👥 Customers</a>
-          <a href="#" className="nav-item">⚙️ Settings</a>
+          <a href="#" className="nav-item active">
+            📊 Dashboard
+          </a>
+          <a href="#" className="nav-item">
+            🛒 Point of Sale
+          </a>
+          <a href="/inventory" className="nav-item">
+            📦 Inventory
+          </a>
+          <a href="#" className="nav-item">
+            👥 Customers
+          </a>
+          <a href="#" className="nav-item">
+            ⚙️ Settings
+          </a>
         </nav>
         <div className="sidebar-footer">
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
+          <button onClick={handleLogout} className="logout-btn">
+            Logout
+          </button>
         </div>
       </aside>
 
@@ -46,7 +57,7 @@ export default function Dashboard() {
             <p className="widget-value">R 0.00</p>
             <span className="widget-trend positive">No sales yet today</span>
           </div>
-          
+
           {/* Widget 2 */}
           <div className="widget-card">
             <h3>Total Products</h3>
@@ -58,7 +69,9 @@ export default function Dashboard() {
           <div className="widget-card alert-card">
             <h3>Low Stock Alerts</h3>
             <p className="widget-value">0</p>
-            <span className="widget-trend negative">All items are well stocked</span>
+            <span className="widget-trend negative">
+              All items are well stocked
+            </span>
           </div>
         </div>
 
